@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zesty Pot Kitchen — Hot, Tasty, Hostel-Ready Meals | Afowowa</title>
+<meta name="description" content="Zesty Pot Kitchen serves hot, tasty, hostel-ready meals 24/7 at Despring Hostel Afowowa. Smoky Jollof, Asun, Shawarma & more. Fast delivery, student prices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        zesty: '#D32F2F',
+        zestyDark: '#A92424',
+        zestyDeep: '#7F1D1D',
+        gold: '#FFC107',
+        goldLight: '#FFD54F',
+        goldDark: '#FF8F00',
+        charcoal: '#1A1A1A',
+        charcoal2: '#2B2B2B',
+        cream: '#FFF8E1',
+        cream2: '#FFF3C4',
+        lightgray: '#F5F5F5',
+        fresh: '#2E7D32',
+        freshLight: '#E8F5E9'
+      },
+      fontFamily: {
+        poppins: ['Poppins','sans-serif'],
+        inter: ['Inter','sans-serif']
+      },
+      boxShadow: {
+        card: '0 10px 40px -10px rgba(211,47,47,.25)',
+        pop: '0 20px 60px -12px rgba(0,0,0,.35)',
+        goldglow: '0 8px 30px -6px rgba(255,193,7,.6)'
+      }
+    }
+  }
+}
+</script>
+<style>
+*{ -webkit-tap-highlight-color:transparent; }
+html{ scroll-behavior:smooth; scroll-padding-top:90px; }
+body{ font-family:'Inter',sans-serif; background:#FFF8E1; color:#1A1A1A; overflow-x:hidden; }
+h1,h2,h3,h4,.font-head{ font-family:'Poppins',sans-serif; }
+::selection{ background:#D32F2F; color:#fff; }
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-track{ background:#FFF8E1; }
+::-webkit-scrollbar-thumb{ background:linear-gradient(#D32F2F,#FF8F00); border-radius:20px; }
+
+/* Preloader */
+#preloader{ position:fixed; inset:0; z-index:100; background:#1A1A1A; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; transition:opacity .6s, visibility .6s; }
+#preloader.hide{ opacity:0; visibility:hidden; }
+.pot-loader{ width:90px; height:90px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #FFD54F, #FF8F00 60%, #D32F2F); display:flex; align-items:center; justify-content:center; animation:potBounce 1s infinite ease-in-out alternate; box-shadow:0 0 60px rgba(255,193,7,.6); position:relative; }
+.pot-loader::after{ content:''; position:absolute; top:-14px; left:50%; transform:translateX(-50%); width:50px; height:18px; background:radial-gradient(ellipse, rgba(255,255,255,.9), transparent 70%); filter:blur(2px); animation:steam 1.2s infinite ease-in-out; }
+@keyframes potBounce{ from{ transform:scale(1) rotate(-4deg);} to{ transform:scale(1.08) rotate(4deg);} }
+@keyframes steam{ 0%,100%{ opacity:.4; transform:translateX(-50%) translateY(0) scaleX(1);} 50%{ opacity:1; transform:translateX(-50%) translateY(-6px) scaleX(1.3);} }
+
+/* Hero Ken Burns */
+.kenburns{ animation:kb 18s ease-in-out infinite alternate; }
+@keyframes kb{ 0%{ transform:scale(1) translate(0,0);} 100%{ transform:scale(1.15) translate(-20px,-20px);} }
+
+/* Marquee */
+.marquee-track{ display:flex; width:max-content; animation:marquee 22s linear infinite; }
+@keyframes marquee{ to{ transform:translateX(-50%);} }
+.marquee-track:hover{ animation-play-state:paused; }
+
+/* Reveal */
+.reveal{ opacity:0; transform:translateY(36px); transition:all .8s cubic-bezier(.16,1,.3,1); }
+.reveal.visible{ opacity:1; transform:none; }
+.reveal-delay-1{ transition-delay:.1s } .reveal-delay-2{ transition-delay:.2s } .reveal-delay-3{ transition-delay:.3s }
+
+/* Pulsing open dot */
+.pulse-dot{ position:relative; }
+.pulse-dot::after{ content:''; position:absolute; inset:-4px; border-radius:50%; background:rgba(46,125,50,.4); animation:pulseRing 1.8s ease-out infinite; }
+@keyframes pulseRing{ 0%{ transform:scale(.6); opacity:1;} 100%{ transform:scale(1.6); opacity:0;} }
+
+/* Floating cards */
+@keyframes floaty{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-12px);} }
+.floaty{ animation:floaty 4s ease-in-out infinite; }
+.floaty-slow{ animation:floaty 6s ease-in-out infinite; }
+
+/* Pattern */
+.dot-pattern{ background-image:radial-gradient(rgba(211,47,47,.14) 1.5px, transparent 1.5px); background-size:18px 18px; }
+.zigzag{ background:linear-gradient(135deg, #D32F2F 25%, transparent 25%) -12px 0/24px 24px, linear-gradient(225deg, #D32F2F 25%, transparent 25%) -12px 0/24px 24px; }
+
+/* Card hover */
+.dish-card{ transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s; }
+.dish-card:hover{ transform:translateY(-8px); box-shadow:0 20px 50px -12px rgba(211,47,47,.35); }
+.dish-card img.dish-img{ transition:transform .6s cubic-bezier(.16,1,.3,1); }
+.dish-card:hover img.dish-img{ transform:scale(1.08) rotate(1deg); }
+
+/* Toast */
+#toastBox{ position:fixed; bottom:90px; left:50%; transform:translateX(-50%); z-index:90; display:flex; flex-direction:column; gap:10px; align-items:center; width:min(92vw,420px); pointer-events:none; }
+.toast{ pointer-events:auto; display:flex; align-items:center; gap:12px; background:#1A1A1A; color:#fff; padding:12px 16px; border-radius:16px; box-shadow:0 15px 40px rgba(0,0,0,.35); border-left:5px solid #2E7D32; animation:toastIn .4s cubic-bezier(.16,1,.3,1); width:100%; }
+.toast.error{ border-left-color:#D32F2F; }
+@keyframes toastIn{ from{ opacity:0; transform:translateY(20px) scale(.95);} to{ opacity:1; transform:none;} }
+.toast.out{ opacity:0; transform:translateY(10px); transition:all .4s; }
+
+/* Drawer */
+#cartDrawer{ transition:transform .45s cubic-bezier(.16,1,.3,1); }
+#overlay, #qvOverlay{ transition:opacity .35s; }
+
+/* Testimonial */
+#testiTrack{ transition:transform .6s cubic-bezier(.16,1,.3,1); }
+
+/* Buttons */
+.btn-shine{ position:relative; overflow:hidden; }
+.btn-shine::after{ content:''; position:absolute; top:0; left:-80%; width:50%; height:100%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.5), transparent); transform:skewX(-20deg); transition:left .6s; }
+.btn-shine:hover::after{ left:130%; }
+
+/* Flame divider */
+.flame{ filter:drop-shadow(0 4px 10px rgba(255,143,0,.5)); }
+
+/* Map */
+.map-frame{ filter:saturate(1.1) contrast(1.02); }
+
+/* Input */
+.field{ transition:all .25s; }
+.field:focus{ border-color:#D32F2F !important; box-shadow:0 0 0 4px rgba(211,47,47,.15); outline:none; }
+
+/* Nav link underline */
+.navlink{ position:relative; }
+.navlink::after{ content:''; position:absolute; left:0; bottom:-4px; height:3px; width:0; border-radius:99px; background:linear-gradient(90deg,#D32F2F,#FFC107); transition:width .3s; }
+.navlink:hover::after,.navlink.active::after{ width:100%; }
+
+/* Countdown box */
+.count-box{ background:rgba(255,255,255,.12); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.2); }
+
+/* Spicy */
+.spicy{ color:#D32F2F; }
+
+/* Category pill active */
+.cat-active{ background:#1A1A1A !important; color:#FFC107 !important; border-color:#1A1A1A !important; }
+
+@media (max-width:640px){
+  #toastBox{ bottom:86px; }
+}
+</style>
+</head>
+<body class="antialiased">
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pot-loader"><i class="fa-solid fa-kitchen-set text-3xl text-white"></i></div>
+  <div class="font-head font-800 text-white text-xl font-extrabold tracking-wide">Zesty Pot <span class="text-gold">Kitchen</span></div>
+  <div class="text-white/60 text-sm tracking-[0.3em] uppercase">Firing up the pots…</div>
+  <div class="w-44 h-1.5 bg-white/10 rounded-full overflow-hidden"><div id="loadBar" class="h-full w-0 bg-gradient-to-r from-zesty to-gold rounded-full transition-all"></div></div>
+</div>
+
+<!-- TOP BAR -->
+<div class="bg-charcoal text-white text-[12px] sm:text-[13px] relative z-40">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="flex items-center gap-1.5 bg-fresh text-white px-2.5 py-1 rounded-full font-semibold whitespace-nowrap"><span class="pulse-dot w-2 h-2 bg-white rounded-full inline-block"></span> OPEN 24/7</span>
+      <span class="hidden md:inline text-white/70 truncate">Free hostel delivery on orders over ₦10,000 • Despring Hostel, Afowowa</span>
+      <span class="md:hidden text-white/70 truncate">Free delivery over ₦10k</span>
+    </div>
+    <div class="flex items-center gap-3 shrink-0">
+      <a href="tel:+2349162632634" class="hidden sm:flex items-center gap-1.5 hover:text-gold"><i class="fa-solid fa-phone text-gold"></i> 0916 263 2634</a>
+      <a href="https://wa.me/2349162632634?text=Hello%20Zesty%20Pot%20Kitchen!%20I%20want%20to%20order." target="_blank" class="flex items-center gap-1.5 bg-fresh hover:bg-green-700 px-2.5 py-1 rounded-full font-semibold transition"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<header id="navbar" class="sticky top-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-red-100 transition-shadow">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-[72px]" aria-label="Main navigation">
+    <a href="#home" class="flex items-center gap-3 group">
+      <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-zesty to-goldDark flex items-center justify-center text-white text-xl shadow-card rotate-3 group-hover:rotate-12 transition-transform"><i class="fa-solid fa-fire-flame-curved"></i></span>
+      <span class="leading-tight">
+        <span class="font-head font-extrabold text-lg sm:text-xl block">Zesty Pot <span class="text-zesty">Kitchen</span></span>
+        <span class="text-[11px] tracking-[0.2em] uppercase text-charcoal/60 font-semibold">Hostel-Ready Meals</span>
+      </span>
+    </a>
+    <div class="hidden lg:flex items-center gap-7 font-semibold text-[15px]">
+      <a href="#home" class="navlink active">Home</a>
+      <a href="#menu" class="navlink">Menu</a>
+      <a href="#about" class="navlink">About Us</a>
+      <a href="#why" class="navlink">Why Us</a>
+      <a href="#reviews" class="navlink">Reviews</a>
+      <a href="#contact" class="navlink">Contact</a>
+    </div>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <button onclick="toggleCart(true)" class="relative w-11 h-11 rounded-full bg-charcoal text-white flex items-center justify-center hover:bg-zesty transition" aria-label="Open cart">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span id="cartCount" class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gold text-charcoal text-xs font-extrabold flex items-center justify-center border-2 border-cream">0</span>
+      </button>
+      <a href="#menu" class="hidden sm:inline-flex btn-shine items-center gap-2 bg-zesty hover:bg-zestyDark text-white font-bold px-5 py-2.5 rounded-full shadow-card transition"><i class="fa-solid fa-utensils"></i> Order Now</a>
+      <button id="menuBtn" class="lg:hidden w-11 h-11 rounded-full bg-white border border-red-100 flex items-center justify-center" aria-label="Menu"><i class="fa-solid fa-bars text-lg"></i></button>
+    </div>
+  </nav>
+  <!-- mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden border-t border-red-100 bg-cream px-4 py-4">
+    <div class="grid gap-1 font-semibold">
+      <a href="#home" class="mob-link px-4 py-3 rounded-xl hover:bg-white">🏠 Home</a>
+      <a href="#menu" class="mob-link px-4 py-3 rounded-xl hover:bg-white">🍛 Menu</a>
+      <a href="#about" class="mob-link px-4 py-3 rounded-xl hover:bg-white">❤️ About Us</a>
+      <a href="#why" class="mob-link px-4 py-3 rounded-xl hover:bg-white">⭐ Why Choose Us</a>
+      <a href="#reviews" class="mob-link px-4 py-3 rounded-xl hover:bg-white">💬 Reviews</a>
+      <a href="#contact" class="mob-link px-4 py-3 rounded-xl hover:bg-white">📍 Contact</a>
+      <a href="#menu" class="mob-link mt-2 text-center bg-zesty text-white px-4 py-3 rounded-xl font-bold">Order Now <i class="fa-solid fa-arrow-right ml-1"></i></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section id="home" class="relative min-h-[92vh] flex items-center overflow-hidden bg-charcoal">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6efe?q=80&w=1920&auto=format&fit=crop" alt="Smoky Jollof Rice with grilled chicken" class="kenburns w-full h-full object-cover" fetchpriority="high">
+    <!-- Gradient overlay for legibility -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/30"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-zesty/40 via-transparent to-gold/20 mix-blend-overlay"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 lg:py-20 w-full grid lg:grid-cols-[1.15fr_.85fr] gap-10 items-center">
+    <div>
+      <div class="reveal inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-full pl-1.5 pr-4 py-1.5 text-white text-[13px] font-semibold mb-5">
+        <span class="bg-gold text-charcoal px-2.5 py-1 rounded-full text-[12px] font-extrabold"><i class="fa-solid fa-crown mr-1"></i>NO.1 IN AFOWOWA</span>
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Open Now • Delivering in 25 mins</span>
+      </div>
+      <h1 class="reveal reveal-delay-1 font-head font-black text-white leading-[1.02] text-[2.6rem] sm:text-6xl lg:text-[4.4rem]">
+        Zesty Pot Kitchen:<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-goldLight via-gold to-orange-400">Hot, Tasty,</span><br>
+        Hostel-Ready <span class="relative inline-block">Meals
+          <svg class="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 9 Q 50 2 100 7 T 198 5" stroke="#FFC107" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+        </span>
+      </h1>
+      <p class="reveal reveal-delay-2 mt-6 text-white/80 text-base sm:text-lg max-w-xl leading-relaxed">Smoky party jollof, peppered asun, overload shawarma — cooked fresh, packed hygienically & delivered to your hostel door, even by <strong class="text-white">2AM</strong>. Student budget approved.</p>
+      <div class="reveal reveal-delay-3 mt-8 flex flex-wrap gap-3">
+        <a href="#menu" class="btn-shine inline-flex items-center gap-2 bg-zesty hover:bg-zestyDark text-white font-extrabold px-7 py-4 rounded-full text-[15px] shadow-pop transition-transform hover:scale-[1.03]"><i class="fa-solid fa-fire"></i> Order Now <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="https://wa.me/2349162632634?text=Hello%20Zesty%20Pot%20Kitchen!%20I%20want%20to%20place%20an%20order%20%F0%9F%8D%9B" target="_blank" class="inline-flex items-center gap-2 bg-fresh hover:bg-green-700 text-white font-bold px-7 py-4 rounded-full text-[15px] shadow-pop transition-transform hover:scale-[1.03]"><i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Us</a>
+        <a href="#menu" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur border border-white/25 text-white font-semibold px-6 py-4 rounded-full transition"><i class="fa-solid fa-book-open"></i> View Menu</a>
+      </div>
+      <!-- trust row -->
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <div class="flex -space-x-3">
+          <img loading="lazy" class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://randomuser.me/api/portraits/women/65.jpg" alt="student">
+          <img loading="lazy" class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://randomuser.me/api/portraits/men/32.jpg" alt="student">
+          <img loading="lazy" class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://randomuser.me/api/portraits/women/44.jpg" alt="student">
+          <img loading="lazy" class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://randomuser.me/api/portraits/men/75.jpg" alt="student">
+          <span class="w-10 h-10 rounded-full border-2 border-white bg-gold text-charcoal text-xs font-extrabold flex items-center justify-center">15k+</span>
+        </div>
+        <div class="text-white">
+          <div class="flex items-center gap-1 text-gold text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> <span class="text-white font-bold ml-1">4.9/5</span></div>
+          <p class="text-white/70 text-[13px]">Loved by hostel students across Afowowa</p>
+        </div>
+      </div>
+      <!-- stats -->
+      <div class="mt-8 grid grid-cols-3 max-w-md gap-3">
+        <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-3 text-center"><div class="font-head font-extrabold text-white text-xl sm:text-2xl"><span class="counter" data-target="15200">0</span>+</div><div class="text-white/60 text-[11px] uppercase tracking-wider font-semibold">Happy Foodies</div></div>
+        <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-3 text-center"><div class="font-head font-extrabold text-white text-xl sm:text-2xl"><span class="counter" data-target="25">0</span>min</div><div class="text-white/60 text-[11px] uppercase tracking-wider font-semibold">Avg Delivery</div></div>
+        <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-3 text-center"><div class="font-head font-extrabold text-gold text-xl sm:text-2xl">24/7</div><div class="text-white/60 text-[11px] uppercase tracking-wider font-semibold">Always Open</div></div>
+      </div>
+    </div>
+
+    <!-- Hero floating cards -->
+    <div class="hidden lg:block relative">
+      <div class="floaty relative bg-white rounded-[26px] p-4 shadow-pop max-w-sm ml-auto rotate-2">
+        <div class="relative rounded-2xl overflow-hidden h-64">
+          <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800&auto=format&fit=crop" alt="Jollof Rice" class="w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-zesty text-white text-xs font-bold px-3 py-1.5 rounded-full"><i class="fa-solid fa-fire mr-1"></i>BESTSELLER</span>
+          <span class="absolute top-3 right-3 bg-white/95 text-charcoal text-xs font-extrabold px-3 py-1.5 rounded-full">₦3,900</span>
+        </div>
+        <div class="pt-3 flex items-center justify-between">
+          <div><h3 class="font-extrabold">Smoky Party Jollof + Chicken</h3><p class="text-sm text-gray-500">🔥 2,300+ ordered this week</p></div>
+          <button onclick="addToCart(1)" class="w-11 h-11 rounded-full bg-zesty text-white hover:bg-charcoal transition shrink-0"><i class="fa-solid fa-plus"></i></button>
+        </div>
+      </div>
+      <div class="floaty-slow absolute -bottom-8 -left-2 bg-charcoal text-white rounded-2xl px-5 py-4 shadow-pop flex items-center gap-3 -rotate-2">
+        <span class="w-12 h-12 rounded-full bg-fresh flex items-center justify-center text-xl"><i class="fa-solid fa-motorcycle"></i></span>
+        <div><p class="font-bold text-sm">Rider nearby!</p><p class="text-white/60 text-xs">Despring Hostel • 5 mins away</p></div>
+      </div>
+      <div class="floaty absolute -top-8 -left-6 bg-gold text-charcoal rounded-2xl px-4 py-3 shadow-goldglow flex items-center gap-2 rotate-3" style="animation-delay:.8s">
+        <i class="fa-solid fa-bolt text-lg"></i><div class="text-sm font-extrabold leading-tight">Late-Night<br><span class="font-medium">shawarma till 3AM</span></div>
+      </div>
+    </div>
+  </div>
+  <a href="#menu" class="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/70 flex flex-col items-center gap-1 text-[11px] tracking-[0.25em] uppercase">Scroll <span class="w-6 h-10 rounded-full border-2 border-white/40 flex justify-center pt-2"><span class="w-1 h-2 bg-gold rounded-full animate-bounce block"></span></span></a>
+</section>
+
+<!-- TICKER -->
+<div class="bg-zesty text-white overflow-hidden py-3 border-y-4 border-charcoal relative z-10">
+  <div class="marquee-track gap-0 font-head font-extrabold tracking-wide text-sm sm:text-base">
+    <div class="flex items-center gap-8 pr-8 whitespace-nowrap">
+      <span>🔥 SMOKY JOLLOF ₦3,900</span><span class="text-gold">★</span><span>🍗 ASUN SPECIAL</span><span class="text-gold">★</span><span>🌯 SHAWARMA OVERLOAD</span><span class="text-gold">★</span><span>🥘 EGUSI + POUNDO</span><span class="text-gold">★</span><span>🛵 24/7 HOSTEL DELIVERY</span><span class="text-gold">★</span><span>💛 STUDENT PRICES</span><span class="text-gold">★</span>
+    </div>
+    <div class="flex items-center gap-8 pr-8 whitespace-nowrap" aria-hidden="true">
+      <span>🔥 SMOKY JOLLOF ₦3,900</span><span class="text-gold">★</span><span>🍗 ASUN SPECIAL</span><span class="text-gold">★</span><span>🌯 SHAWARMA OVERLOAD</span><span class="text-gold">★</span><span>🥘 EGUSI + POUNDO</span><span class="text-gold">★</span><span>🛵 24/7 HOSTEL DELIVERY</span><span class="text-gold">★</span><span>💛 STUDENT PRICES</span><span class="text-gold">★</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MENU ============ -->
+<section id="menu" class="py-16 sm:py-20 bg-cream dot-pattern relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="inline-flex items-center gap-2 bg-zesty/10 text-zesty font-bold text-[13px] px-4 py-1.5 rounded-full uppercase tracking-wider"><i class="fa-solid fa-utensils"></i> Our Menu</span>
+      <h2 class="font-head font-black text-3xl sm:text-5xl mt-4">Cravings? <span class="text-zesty">Sorted.</span> <span class="inline-block">🍛</span></h2>
+      <p class="text-charcoal/60 mt-3">Fresh from the pot, priced for pocket money. Tap <strong>Add to Cart</strong> or chat us directly on WhatsApp.</p>
+    </div>
+
+    <!-- controls -->
+    <div class="mt-8 flex flex-col lg:flex-row gap-3 lg:items-center reveal">
+      <div class="relative flex-1">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40"></i>
+        <input id="searchInput" type="search" placeholder="Search jollof, shawarma, asun…" class="field w-full bg-white border-2 border-red-100 rounded-full pl-11 pr-4 py-3 text-[15px] font-medium placeholder:text-charcoal/40">
+      </div>
+      <div class="flex gap-2 overflow-x-auto pb-1" id="catPills">
+        <button data-cat="all" class="cat-btn cat-active shrink-0 px-5 py-2.5 rounded-full border-2 border-red-100 bg-white font-bold text-sm transition">All Dishes</button>
+        <button data-cat="rice" class="cat-btn shrink-0 px-5 py-2.5 rounded-full border-2 border-red-100 bg-white font-bold text-sm transition">🍚 Rice & Pasta</button>
+        <button data-cat="soup" class="cat-btn shrink-0 px-5 py-2.5 rounded-full border-2 border-red-100 bg-white font-bold text-sm transition">🥘 Soups & Swallow</button>
+        <button data-cat="grill" class="cat-btn shrink-0 px-5 py-2.5 rounded-full border-2 border-red-100 bg-white font-bold text-sm transition">🔥 Grills</button>
+        <button data-cat="fast" class="cat-btn shrink-0 px-5 py-2.5 rounded-full border-2 border-red-100 bg-white font-bold text-sm transition">🌯 Fast Food</button>
+        <button data-cat="combo" class="cat-btn shrink-0 px-5 py-2.5 rounded-full border-2 border-red-100 bg-white font-bold text-sm transition">🎁 Combos & Drinks</button>
+      </div>
+    </div>
+    <p id="menuCount" class="mt-4 text-sm text-charcoal/50 font-medium"></p>
+
+    <!-- grid -->
+    <div id="menuGrid" class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+  </div>
+</section>
+
+<!-- COMBO DEAL BANNER -->
+<section class="px-4 sm:px-6 -mt-2 mb-4">
+  <div class="max-w-7xl mx-auto reveal">
+    <div class="relative overflow-hidden rounded-[28px] bg-charcoal text-white p-7 sm:p-10 grid md:grid-cols-2 gap-8 items-center shadow-pop">
+      <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=1000&auto=format&fit=crop" alt="" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-25">
+      <div class="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/90 to-zesty/60"></div>
+      <div class="relative">
+        <span class="bg-gold text-charcoal font-extrabold text-xs px-3 py-1.5 rounded-full uppercase tracking-wider"><i class="fa-solid fa-tag mr-1"></i> Hostel Rush Deal • Ends Midnight</span>
+        <h3 class="font-head font-black text-2xl sm:text-4xl mt-4 leading-tight">Buy 2 Smoky Jollof,<br>Get <span class="text-gold">Chapman FREE</span> 🥤</h3>
+        <p class="text-white/70 mt-2 text-sm sm:text-base">Split with your roommate. Or don't — we won't judge. Use code <button onclick="copyCode()" class="bg-white/15 border border-dashed border-gold px-2 py-0.5 rounded font-mono font-bold text-gold hover:bg-white/25">ZESTY2AM <i class="fa-regular fa-copy"></i></button></p>
+        <div class="flex gap-2.5 mt-5" id="countdown">
+          <div class="count-box rounded-2xl w-[70px] py-2.5 text-center"><div id="cdH" class="font-head font-extrabold text-2xl">00</div><div class="text-[10px] tracking-widest text-white/60">HOURS</div></div>
+          <div class="count-box rounded-2xl w-[70px] py-2.5 text-center"><div id="cdM" class="font-head font-extrabold text-2xl">00</div><div class="text-[10px] tracking-widest text-white/60">MINS</div></div>
+          <div class="count-box rounded-2xl w-[70px] py-2.5 text-center"><div id="cdS" class="font-head font-extrabold text-2xl">00</div><div class="text-[10px] tracking-widest text-white/60">SECS</div></div>
+        </div>
+        <div class="flex flex-wrap gap-3 mt-6">
+          <button onclick="addToCart(1);addToCart(1)" class="btn-shine bg-gold hover:bg-goldLight text-charcoal font-extrabold px-6 py-3.5 rounded-full transition"><i class="fa-solid fa-bolt mr-1"></i> Claim Deal</button>
+          <a href="https://wa.me/2349162632634?text=Hello!%20I%20want%20the%20ZESTY2AM%20deal%20(2%20Jollof%20%2B%20Free%20Chapman)" target="_blank" class="border border-white/30 hover:bg-white/10 px-6 py-3.5 rounded-full font-bold transition"><i class="fa-brands fa-whatsapp mr-1"></i> Order on WhatsApp</a>
+        </div>
+      </div>
+      <div class="relative hidden md:block">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop" alt="Grilled platter" class="rounded-3xl h-[320px] w-full object-cover rotate-2 shadow-pop border-4 border-white/10">
+        <div class="absolute -bottom-4 left-6 bg-white text-charcoal rounded-2xl px-4 py-3 shadow-pop flex items-center gap-3 -rotate-2"><span class="w-10 h-10 rounded-full bg-fresh/10 text-fresh flex items-center justify-center"><i class="fa-solid fa-check"></i></span><div class="text-sm"><strong>1,240 deals</strong> claimed this month<br><span class="text-charcoal/50">by Afowowa students</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="py-16 sm:py-24 bg-white relative overflow-hidden">
+  <div class="absolute -top-20 -right-20 w-72 h-72 bg-gold/20 rounded-full blur-3xl"></div>
+  <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-zesty/10 rounded-full blur-3xl"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center relative">
+    <div class="reveal relative">
+      <div class="grid grid-cols-2 gap-4">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=600&auto=format&fit=crop" alt="Our chef cooking" class="rounded-3xl h-64 sm:h-80 w-full object-cover shadow-card">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=600&auto=format&fit=crop" alt="Hygienic kitchen" class="rounded-3xl h-64 sm:h-80 w-full object-cover mt-8 shadow-card">
+      </div>
+      <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 sm:left-8 sm:translate-x-0 bg-charcoal text-white rounded-2xl px-6 py-4 shadow-pop flex items-center gap-4 whitespace-nowrap">
+        <span class="w-12 h-12 rounded-full bg-gradient-to-br from-zesty to-gold flex items-center justify-center text-xl"><i class="fa-solid fa-award"></i></span>
+        <div><div class="font-head font-extrabold text-lg leading-none">5+ Years</div><div class="text-white/60 text-sm">Feeding hostel life</div></div>
+      </div>
+      <div class="absolute -top-4 -right-2 sm:right-6 bg-white rounded-2xl px-4 py-3 shadow-pop flex items-center gap-2 rotate-3 border border-red-100"><span class="w-9 h-9 rounded-full bg-freshLight text-fresh flex items-center justify-center"><i class="fa-solid fa-shield-halved"></i></span><div class="text-xs font-bold">NAFDAC-Style<br><span class="text-charcoal/50 font-medium">Hygiene Certified</span></div></div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <span class="inline-flex items-center gap-2 bg-gold/20 text-goldDark font-bold text-[13px] px-4 py-1.5 rounded-full uppercase tracking-wider"><i class="fa-solid fa-heart"></i> About Us</span>
+      <h2 class="font-head font-black text-3xl sm:text-5xl mt-4 leading-tight">Built for <span class="text-zesty">hostel life.</span> Priced for students.</h2>
+      <p class="mt-4 text-charcoal/65 leading-relaxed">We started in a tiny kitchen beside Despring Hostel with one pot of jollof and a dream: no student should read at 1AM on an empty stomach. Today, Zesty Pot Kitchen cooks in small, fresh batches round the clock — so your food never sits, never spoils, and never breaks your budget.</p>
+      <div class="mt-6 grid sm:grid-cols-3 gap-3">
+        <div class="bg-cream rounded-2xl p-4 border border-orange-100"><span class="w-10 h-10 rounded-xl bg-zesty text-white flex items-center justify-center mb-2"><i class="fa-solid fa-bed"></i></span><h4 class="font-bold text-[15px]">Hostel-First</h4><p class="text-[13px] text-charcoal/60 mt-1">Room-to-door delivery, bunk-friendly packs, late-night menu.</p></div>
+        <div class="bg-cream rounded-2xl p-4 border border-orange-100"><span class="w-10 h-10 rounded-xl bg-fresh text-white flex items-center justify-center mb-2"><i class="fa-solid fa-hand-sparkles"></i></span><h4 class="font-bold text-[15px]">Hygiene Obsessed</h4><p class="text-[13px] text-charcoal/60 mt-1">Gloved packing, sealed bowls, filtered water, daily deep-clean.</p></div>
+        <div class="bg-cream rounded-2xl p-4 border border-orange-100"><span class="w-10 h-10 rounded-xl bg-gold text-charcoal flex items-center justify-center mb-2"><i class="fa-solid fa-wallet"></i></span><h4 class="font-bold text-[15px]">Truly Affordable</h4><p class="text-[13px] text-charcoal/60 mt-1">Full meals from ₦1,800. Weekly subscriptions save 15%.</p></div>
+      </div>
+      <ul class="mt-5 space-y-2.5 text-[15px] font-medium">
+        <li class="flex items-center gap-2.5"><span class="w-6 h-6 rounded-full bg-fresh text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span> Free delivery within Despring & neighbouring hostels over ₦10k</li>
+        <li class="flex items-center gap-2.5"><span class="w-6 h-6 rounded-full bg-fresh text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span> Cooking 24/7 — exam-season survival packs available</li>
+        <li class="flex items-center gap-2.5"><span class="w-6 h-6 rounded-full bg-fresh text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span> Pay on delivery: cash, transfer or USSD</li>
+      </ul>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="#menu" class="btn-shine bg-charcoal hover:bg-zesty text-white font-bold px-6 py-3.5 rounded-full transition">Explore Menu <i class="fa-solid fa-arrow-right ml-1"></i></a>
+        <a href="#contact" class="bg-white border-2 border-charcoal/10 hover:border-zesty font-bold px-6 py-3.5 rounded-full transition">Visit Us <i class="fa-solid fa-location-dot ml-1 text-zesty"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY CHOOSE US ============ -->
+<section id="why" class="py-16 sm:py-24 bg-charcoal relative overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.07]" style="background-image:url('https://www.transparenttextures.com/patterns/food.png')"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-zesty/30 blur-[120px] rounded-full"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="inline-flex items-center gap-2 bg-gold text-charcoal font-extrabold text-[13px] px-4 py-1.5 rounded-full uppercase tracking-wider"><i class="fa-solid fa-bolt"></i> Why Choose Us</span>
+      <h2 class="font-head font-black text-3xl sm:text-5xl mt-4 text-white">Why hostellers <span class="text-gold">never leave us</span></h2>
+      <p class="text-white/60 mt-3">Four promises we keep every single day — even during exams, rain, or fuel scarcity.</p>
+    </div>
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <article class="reveal group bg-white/[0.06] backdrop-blur border border-white/10 hover:border-gold/60 hover:bg-white/[0.09] rounded-3xl p-6 transition-all hover:-translate-y-2">
+        <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-gold to-goldDark text-charcoal text-2xl flex items-center justify-center shadow-goldglow group-hover:scale-110 group-hover:rotate-6 transition-transform"><i class="fa-solid fa-piggy-bank"></i></span>
+        <h3 class="font-head font-extrabold text-white text-xl mt-4">Affordable</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">Full belleful meals from ₦1,800. Student subscriptions, squad combos & pocket-friendly daily specials.</p>
+        <div class="mt-4 text-gold font-bold text-sm">From ₦1,800 <i class="fa-solid fa-arrow-right ml-1"></i></div>
+      </article>
+      <article class="reveal reveal-delay-1 group bg-white/[0.06] backdrop-blur border border-white/10 hover:border-gold/60 hover:bg-white/[0.09] rounded-3xl p-6 transition-all hover:-translate-y-2">
+        <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-zesty to-zestyDeep text-white text-2xl flex items-center justify-center shadow-card group-hover:scale-110 group-hover:rotate-6 transition-transform"><i class="fa-solid fa-motorcycle"></i></span>
+        <h3 class="font-head font-extrabold text-white text-xl mt-4">Fast Delivery</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">Hostel-zone riders on standby. Average 25 mins to Despring, live WhatsApp tracking included.</p>
+        <div class="mt-4 text-gold font-bold text-sm">~25 mins avg <i class="fa-solid fa-arrow-right ml-1"></i></div>
+      </article>
+      <article class="reveal reveal-delay-2 group bg-white/[0.06] backdrop-blur border border-white/10 hover:border-gold/60 hover:bg-white/[0.09] rounded-3xl p-6 transition-all hover:-translate-y-2">
+        <span class="w-14 h-14 rounded-2xl bg-gradient-to-br from-fresh to-green-900 text-white text-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-transform"><i class="fa-solid fa-leaf"></i></span>
+        <h3 class="font-head font-extrabold text-white text-xl mt-4">Freshly Prepared</h3>
+        <p class="text-white/60 text-sm mt-2 leading-relaxed">Cooked in small batches through the day. No stale pots — if it's been 2hrs, we re-fire it.</p>
+        <div class="mt-4 text-gold font-bold text-sm">Batch-fresh <i class="fa-solid fa-arrow-right ml-1"></i></div>
+      </article>
+      <article class="reveal reveal-delay-3 group bg-gradient-to-b from-fresh to-green-900 rounded-3xl p-6 transition-all hover:-translate-y-2 border border-green-400/30 shadow-pop relative overflow-hidden">
+        <div class="absolute top-3 right-3 flex items-center gap-1.5 bg-white text-fresh text-[11px] font-extrabold px-2.5 py-1 rounded-full"><span class="pulse-dot w-2 h-2 bg-fresh rounded-full inline-block"></span> OPEN NOW</div>
+        <span class="w-14 h-14 rounded-2xl bg-white text-fresh text-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-transform"><i class="fa-solid fa-clock"></i></span>
+        <h3 class="font-head font-extrabold text-white text-xl mt-4">Open 24/7</h3>
+        <p class="text-white/80 text-sm mt-2 leading-relaxed">Midnight cravings? Exam all-nighter? Our pots never sleep, so you can read (and chop) in peace.</p>
+        <div class="mt-4 text-white font-bold text-sm">Always. Really. <i class="fa-solid fa-arrow-right ml-1"></i></div>
+      </article>
+    </div>
+    <!-- how it works -->
+    <div class="mt-10 bg-white rounded-[26px] p-6 sm:p-8 grid md:grid-cols-3 gap-6 reveal">
+      <div class="flex gap-4"><span class="w-12 h-12 shrink-0 rounded-full bg-charcoal text-gold font-head font-black flex items-center justify-center text-lg">1</span><div><h4 class="font-extrabold">Pick your craving</h4><p class="text-sm text-charcoal/60">Browse the menu, add to cart or tap Message Business.</p></div></div>
+      <div class="flex gap-4"><span class="w-12 h-12 shrink-0 rounded-full bg-zesty text-white font-head font-black flex items-center justify-center text-lg">2</span><div><h4 class="font-extrabold">Confirm on WhatsApp</h4><p class="text-sm text-charcoal/60">One tap sends your order + hostel block & room no.</p></div></div>
+      <div class="flex gap-4"><span class="w-12 h-12 shrink-0 rounded-full bg-gold text-charcoal font-head font-black flex items-center justify-center text-lg">3</span><div><h4 class="font-extrabold">Hot at your door</h4><p class="text-sm text-charcoal/60">Sealed, steaming & fast. Pay cash, transfer or USSD.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="reviews" class="py-16 sm:py-24 bg-cream relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 reveal">
+      <div>
+        <span class="inline-flex items-center gap-2 bg-zesty/10 text-zesty font-bold text-[13px] px-4 py-1.5 rounded-full uppercase tracking-wider"><i class="fa-solid fa-comments"></i> Testimonials</span>
+        <h2 class="font-head font-black text-3xl sm:text-5xl mt-4">Hostel gist: <span class="text-zesty">students approve ✓</span></h2>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="moveTesti(-1)" class="w-12 h-12 rounded-full bg-white border-2 border-red-100 hover:bg-charcoal hover:text-white transition" aria-label="Previous"><i class="fa-solid fa-arrow-left"></i></button>
+        <button onclick="moveTesti(1)" class="w-12 h-12 rounded-full bg-zesty text-white hover:bg-charcoal transition" aria-label="Next"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+    <div class="mt-8 overflow-hidden reveal">
+      <div id="testiTrack" class="flex gap-5"></div>
+    </div>
+    <div id="testiDots" class="mt-6 flex justify-center gap-2"></div>
+    <!-- rating strip -->
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+      <div class="bg-white rounded-2xl py-4 border border-red-100"><div class="font-head font-black text-2xl">4.9★</div><div class="text-xs text-charcoal/50 font-semibold uppercase tracking-wider">Google Rating</div></div>
+      <div class="bg-white rounded-2xl py-4 border border-red-100"><div class="font-head font-black text-2xl">2,400+</div><div class="text-xs text-charcoal/50 font-semibold uppercase tracking-wider">Reviews</div></div>
+      <div class="bg-white rounded-2xl py-4 border border-red-100"><div class="font-head font-black text-2xl">98%</div><div class="text-xs text-charcoal/50 font-semibold uppercase tracking-wider">Reorder Rate</div></div>
+      <div class="bg-white rounded-2xl py-4 border border-red-100"><div class="font-head font-black text-2xl">15k+</div><div class="text-xs text-charcoal/50 font-semibold uppercase tracking-wider">Students Fed</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="py-16 sm:py-24 bg-white relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="inline-flex items-center gap-2 bg-fresh/10 text-fresh font-bold text-[13px] px-4 py-1.5 rounded-full uppercase tracking-wider"><i class="fa-solid fa-location-dot"></i> Find Us • Talk To Us</span>
+      <h2 class="font-head font-black text-3xl sm:text-5xl mt-4">Come hungry. <span class="text-zesty">Leave happy.</span></h2>
+      <p class="text-charcoal/60 mt-3">Right at Despring Hostel, Afowowa — follow the jollof aroma. Or ping us anytime; we're awake.</p>
+    </div>
+
+    <div class="mt-10 grid lg:grid-cols-5 gap-6">
+      <!-- info + map -->
+      <div class="lg:col-span-3 space-y-5">
+        <div class="grid sm:grid-cols-3 gap-4 reveal">
+          <div class="bg-cream rounded-2xl p-5 border border-orange-100"><span class="w-11 h-11 rounded-xl bg-zesty text-white flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-location-dot"></i></span><h4 class="font-extrabold text-[15px]">Location</h4><p class="text-sm text-charcoal/60 mt-1">Despring Hostel, Afowowa, Ogun State. Block C, Shop 4.</p><a href="https://www.google.com/maps/search/?api=1&query=Despring+Hostel+Afowowa" target="_blank" class="text-zesty text-sm font-bold mt-2 inline-block">Get Directions →</a></div>
+          <div class="bg-cream rounded-2xl p-5 border border-orange-100"><span class="w-11 h-11 rounded-xl bg-fresh text-white flex items-center justify-center text-lg mb-3"><i class="fa-brands fa-whatsapp"></i></span><h4 class="font-extrabold text-[15px]">WhatsApp / Call</h4><p class="text-sm text-charcoal/60 mt-1">0916 263 2634<br>Replies in ~2 mins</p><a href="https://wa.me/2349162632634?text=Hello%20Zesty%20Pot%20Kitchen!" target="_blank" class="text-fresh text-sm font-bold mt-2 inline-block">Chat Now →</a></div>
+          <div class="bg-cream rounded-2xl p-5 border border-orange-100"><span class="w-11 h-11 rounded-xl bg-gold text-charcoal flex items-center justify-center text-lg mb-3"><i class="fa-solid fa-clock"></i></span><h4 class="font-extrabold text-[15px]">Opening Hours</h4><p class="text-sm text-charcoal/60 mt-1">Mon – Sun<br><span class="inline-flex items-center gap-1.5 font-bold text-fresh"><span class="w-2 h-2 rounded-full bg-fresh animate-pulse"></span> Open 24 Hours</span></p></div>
+        </div>
+        <div class="reveal reveal-delay-1 relative rounded-[24px] overflow-hidden border-4 border-cream shadow-card">
+          <iframe title="Zesty Pot Kitchen location map - Despring Hostel Afowowa" src="https://maps.google.com/maps?q=Despring%20Hostel%20Afowowa%20Ogun%20State&t=&z=15&ie=UTF8&iwloc=&output=embed" class="map-frame w-full h-[320px] border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <div class="absolute bottom-4 left-4 right-4 sm:right-auto bg-white rounded-2xl px-4 py-3 shadow-pop flex items-center gap-3">
+            <span class="w-10 h-10 rounded-full bg-zesty text-white flex items-center justify-center"><i class="fa-solid fa-fire"></i></span>
+            <div class="text-sm"><strong>Zesty Pot Kitchen</strong><br><span class="text-charcoal/50">Despring Hostel, Afowowa</span></div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Despring+Hostel+Afowowa" target="_blank" class="ml-2 bg-charcoal text-white text-xs font-bold px-3 py-2 rounded-full hover:bg-zesty">Directions</a>
+          </div>
+        </div>
+      </div>
+      <!-- form -->
+      <div class="lg:col-span-2 reveal reveal-delay-2">
+        <form id="contactForm" class="bg-charcoal text-white rounded-[24px] p-6 sm:p-8 shadow-pop relative overflow-hidden" novalidate>
+          <div class="absolute -top-16 -right-16 w-48 h-48 bg-zesty/40 blur-3xl rounded-full"></div>
+          <h3 class="font-head font-extrabold text-2xl relative">Send us a message ✉️</h3>
+          <p class="text-white/60 text-sm mt-1 relative">Bulk orders, birthday surprise, weekly subscription — we reply fast.</p>
+          <div class="mt-5 space-y-3.5 relative">
+            <div class="grid sm:grid-cols-2 gap-3.5">
+              <div><label class="text-xs font-bold uppercase tracking-wider text-white/60" for="cfName">Name</label><input id="cfName" required placeholder="Adaeze O." class="field mt-1.5 w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-[15px] placeholder:text-white/30 text-white"></div>
+              <div><label class="text-xs font-bold uppercase tracking-wider text-white/60" for="cfPhone">Phone / Room</label><input id="cfPhone" placeholder="080… • Block A Rm 12" class="field mt-1.5 w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-[15px] placeholder:text-white/30 text-white"></div>
+            </div>
+            <div><label class="text-xs font-bold uppercase tracking-wider text-white/60" for="cfEmail">Email</label><input id="cfEmail" type="email" required placeholder="you@school.edu" class="field mt-1.5 w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-[15px] placeholder:text-white/30 text-white"></div>
+            <div><label class="text-xs font-bold uppercase tracking-wider text-white/60" for="cfMsg">Message</label><textarea id="cfMsg" rows="4" required placeholder="Hello! I want weekly lunch for 2…" class="field mt-1.5 w-full bg-white/10 border border-white/15 rounded-xl px-4 py-3 text-[15px] placeholder:text-white/30 text-white resize-none"></textarea></div>
+            <button type="submit" class="btn-shine w-full bg-gradient-to-r from-zesty to-orange-500 hover:brightness-110 font-extrabold py-4 rounded-xl transition flex items-center justify-center gap-2"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+            <a href="https://wa.me/2349162632634?text=Hello%20Zesty%20Pot%20Kitchen!%20I%20have%20an%20enquiry." target="_blank" class="w-full bg-fresh hover:bg-green-600 font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-lg"></i> Or Message Business on WhatsApp</a>
+            <p class="text-center text-white/40 text-xs">Prefer email? <a href="mailto:hello@zestypot.ng" class="text-gold font-semibold">hello@zestypot.ng</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-charcoal text-white pt-14 pb-6 relative overflow-hidden">
+  <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-zesty via-gold to-fresh"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <div class="flex items-center gap-3"><span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-zesty to-goldDark flex items-center justify-center text-xl"><i class="fa-solid fa-fire-flame-curved"></i></span><div class="font-head font-extrabold text-xl">Zesty Pot <span class="text-gold">Kitchen</span></div></div>
+        <p class="text-white/55 text-sm mt-4 leading-relaxed">Hot, tasty, hostel-ready meals — 24/7 at Despring Hostel, Afowowa. Made with love, pepper & plenty vibes.</p>
+        <div class="flex gap-2.5 mt-5">
+          <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/10 hover:bg-zesty flex items-center justify-center transition"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok" class="w-10 h-10 rounded-full bg-white/10 hover:bg-zesty flex items-center justify-center transition"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" aria-label="X" class="w-10 h-10 rounded-full bg-white/10 hover:bg-zesty flex items-center justify-center transition"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://wa.me/2349162632634" target="_blank" aria-label="WhatsApp" class="w-10 h-10 rounded-full bg-fresh hover:bg-green-600 flex items-center justify-center transition"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-zesty flex items-center justify-center transition"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-head font-bold text-gold uppercase tracking-wider text-sm">Quick Links</h4>
+        <ul class="mt-4 space-y-2.5 text-white/65 text-[15px]">
+          <li><a href="#home" class="hover:text-gold transition">→ Home</a></li>
+          <li><a href="#menu" class="hover:text-gold transition">→ Full Menu</a></li>
+          <li><a href="#about" class="hover:text-gold transition">→ About Us</a></li>
+          <li><a href="#why" class="hover:text-gold transition">→ Why Choose Us</a></li>
+          <li><a href="#reviews" class="hover:text-gold transition">→ Student Reviews</a></li>
+          <li><a href="#contact" class="hover:text-gold transition">→ Contact & Location</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-head font-bold text-gold uppercase tracking-wider text-sm">Contact Info</h4>
+        <ul class="mt-4 space-y-3 text-white/65 text-[14px]">
+          <li class="flex gap-2.5"><i class="fa-solid fa-location-dot text-zesty mt-1"></i> Block C, Shop 4, Despring Hostel, Afowowa, Ogun State</li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-phone text-zesty mt-1"></i> <a href="tel:+2349162632634" class="hover:text-white">0916 263 2634</a></li>
+          <li class="flex gap-2.5"><i class="fa-solid fa-envelope text-zesty mt-1"></i> <a href="mailto:hello@zestypot.ng" class="hover:text-white">hello@zestypot.ng</a></li>
+          <li class="flex gap-2.5"><i class="fa-brands fa-whatsapp text-fresh mt-1 text-base"></i> <a href="https://wa.me/2349162632634" target="_blank" class="hover:text-white">WhatsApp Business</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-head font-bold text-gold uppercase tracking-wider text-sm">Opening Hours</h4>
+        <div class="mt-4 bg-white/5 border border-white/10 rounded-2xl p-4 text-sm">
+          <div class="flex justify-between py-1.5 border-b border-white/10"><span class="text-white/60">Mon – Fri</span><span class="font-bold text-green-400">24 Hours ●</span></div>
+          <div class="flex justify-between py-1.5 border-b border-white/10"><span class="text-white/60">Saturday</span><span class="font-bold text-green-400">24 Hours ●</span></div>
+          <div class="flex justify-between py-1.5"><span class="text-white/60">Sunday</span><span class="font-bold text-green-400">24 Hours ●</span></div>
+          <p class="mt-2 text-[12px] text-white/45">Late-night kitchen never closes. Shawarma grill till 3AM daily.</p>
+        </div>
+        <form id="newsForm" class="mt-3 flex gap-2">
+          <input id="newsEmail" type="email" required placeholder="Email for deals 🍛" class="field flex-1 min-w-0 bg-white/10 border border-white/15 rounded-full px-4 py-2.5 text-sm placeholder:text-white/30 text-white">
+          <button class="bg-gold hover:bg-goldLight text-charcoal font-extrabold px-4 py-2.5 rounded-full text-sm transition shrink-0">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-white/45">
+      <p>© 2026 Zesty Pot Kitchen. All rights reserved. Made with 🌶️ in Afowowa.</p>
+      <div class="flex items-center gap-2"><span>We accept:</span><span class="bg-white/10 px-2.5 py-1 rounded-md font-bold text-white/70">Cash</span><span class="bg-white/10 px-2.5 py-1 rounded-md font-bold text-white/70">Transfer</span><span class="bg-white/10 px-2.5 py-1 rounded-md font-bold text-white/70">USSD</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING -->
+<a href="https://wa.me/2349162632634?text=Hello%20Zesty%20Pot%20Kitchen!%20I%20want%20to%20order%20%F0%9F%8D%9B" target="_blank" aria-label="Chat on WhatsApp" class="fixed bottom-5 right-5 z-[60] w-14 h-14 rounded-full bg-fresh hover:bg-green-600 text-white text-2xl flex items-center justify-center shadow-pop hover:scale-110 transition-transform"><i class="fa-brands fa-whatsapp"></i><span class="absolute -top-1 -right-1 w-4 h-4 bg-zesty rounded-full border-2 border-white animate-pulse"></span></a>
+<button id="toTop" aria-label="Back to top" class="fixed bottom-5 left-5 z-[60] w-12 h-12 rounded-full bg-charcoal text-gold hidden items-center justify-center shadow-pop hover:bg-zesty hover:text-white transition"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- CART DRAWER -->
+<div id="overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] opacity-0 pointer-events-none" onclick="toggleCart(false)"></div>
+<aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-[420px] bg-cream z-[71] translate-x-full flex flex-col shadow-pop" aria-label="Shopping cart">
+  <div class="bg-charcoal text-white p-5 flex items-center justify-between">
+    <div><h3 class="font-head font-extrabold text-xl">Your Pot 🧺</h3><p id="cartSub" class="text-white/50 text-sm">0 items</p></div>
+    <button onclick="toggleCart(false)" class="w-10 h-10 rounded-full bg-white/10 hover:bg-zesty flex items-center justify-center transition" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="px-5 pt-4"><div class="bg-white rounded-2xl p-3 border border-orange-100 text-[13px]"><div class="flex justify-between font-bold mb-1.5"><span id="freeDelLabel">Add ₦10,000 for FREE delivery 🛵</span><span id="freeDelPct">0%</span></div><div class="h-2.5 bg-cream rounded-full overflow-hidden"><div id="freeDelBar" class="h-full w-0 bg-gradient-to-r from-fresh to-gold rounded-full transition-all duration-500"></div></div></div></div>
+  <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+  <div class="bg-white border-t-2 border-dashed border-orange-200 p-5 space-y-2 text-[15px]">
+    <div class="flex justify-between text-charcoal/60"><span>Subtotal</span><span id="cartSubtotal" class="font-bold text-charcoal">₦0</span></div>
+    <div class="flex justify-between text-charcoal/60"><span>Delivery (hostel)</span><span id="cartDelivery" class="font-bold text-charcoal">₦500</span></div>
+    <div class="flex justify-between font-head font-black text-xl pt-2 border-t border-gray-100"><span>Total</span><span id="cartTotal" class="text-zesty">₦0</span></div>
+    <input id="roomInput" placeholder="Hostel Block & Room No. (e.g. Block A, Rm 12)" class="field w-full bg-cream border-2 border-orange-100 rounded-xl px-4 py-3 text-sm mt-1">
+    <button onclick="checkoutWA()" class="btn-shine w-full bg-fresh hover:bg-green-700 text-white font-extrabold py-4 rounded-xl transition flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-xl"></i> Checkout via WhatsApp</button>
+    <button onclick="toggleCart(false)" class="w-full text-center text-sm font-bold text-charcoal/50 hover:text-zesty py-1">+ Add more food</button>
+  </div>
+</aside>
+
+<!-- QUICK VIEW MODAL -->
+<div id="qvOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[80] opacity-0 pointer-events-none flex items-center justify-center p-4" onclick="if(event.target===this)closeQV()">
+  <div id="qvBox" class="bg-white rounded-[26px] max-w-lg w-full overflow-hidden shadow-pop scale-95 transition-transform max-h-[92vh] overflow-y-auto"></div>
+</div>
+
+<!-- TOASTS -->
+<div id="toastBox" aria-live="polite"></div>
+
+<script>
+/* ============ DATA ============ */
+const MENU = [
+  {id:1, name:"Smoky Party Jollof + Chicken", cat:"rice", price:3900, old:4500, rating:4.9, orders:"2.3k", spice:2, time:"20-30m", tag:"BESTSELLER", img:"https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=800&auto=format&fit=crop", desc:"Firewood-smoked party jollof, juicy grilled chicken, fried plantain & coleslaw. Our legend."},
+  {id:2, name:"Asun Jollof Special", cat:"rice", price:4500, old:null, rating:4.8, orders:"1.1k", spice:3, time:"25-35m", tag:"SPICY 🌶️", img:"https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800&auto=format&fit=crop", desc:"Peppered goat-meat asun tossed in smoky jollof. Not for the faint-hearted."},
+  {id:3, name:"Fried Rice + Turkey", cat:"rice", price:4200, old:null, rating:4.7, orders:"980", spice:1, time:"20-30m", tag:"", img:"https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=800&auto=format&fit=crop", desc:"Colourful Nigerian fried rice, tender turkey, liver & mixed veggies."},
+  {id:4, name:"Egusi + Poundo + Assorted", cat:"soup", price:3500, old:null, rating:4.9, orders:"1.5k", spice:2, time:"15-25m", tag:"HOMELY", img:"https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=800&auto=format&fit=crop", desc:"Rich egusi with assorted meat, ponmo & stockfish, smooth poundo. Tastes like home."},
+  {id:5, name:"Pepper Soup + Agidi (Goat Meat)", cat:"soup", price:3200, old:null, rating:4.8, orders:"760", spice:3, time:"15-20m", tag:"RAINY-DAY", img:"https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=800&auto=format&fit=crop", desc:"Hot, peppery goat-meat pepper soup with soft agidi. Cold or flu? Sorted."},
+  {id:6, name:"Full Grilled Chicken + Chips", cat:"grill", price:6500, old:7200, rating:4.9, orders:"890", spice:2, time:"30-40m", tag:"SQUAD PACK", img:"https://images.unsplash.com/photo-1598103442097-8b74394b95c6?q=80&w=800&auto=format&fit=crop", desc:"Whole flame-grilled chicken, crispy chips, pepper sauce & garlic cream. Feeds 2-3."},
+  {id:7, name:"Peppered Snail (6 pcs)", cat:"grill", price:5200, old:null, rating:4.7, orders:"540", spice:3, time:"20-30m", tag:"PREMIUM", img:"https://images.unsplash.com/photo-1604908176997-125f25cc6efe?q=80&w=800&auto=format&fit=crop", desc:"Big, juicy snails sautéed in hot pepper sauce with onions & bell pepper."},
+  {id:8, name:"Shawarma Overload", cat:"fast", price:2800, old:3200, rating:4.8, orders:"3.1k", spice:1, time:"10-15m", tag:"LATE-NIGHT", img:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=800&auto=format&fit=crop", desc:"Double chicken, sausage, cheese & extra cream. Grilled till 3AM daily."},
+  {id:9, name:"Spaghetti Jollof + Meatballs", cat:"rice", price:3200, old:null, rating:4.6, orders:"1.2k", spice:2, time:"15-25m", tag:"", img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?s?q=80&w=800&auto=format&fit=crop", desc:"Smoky jollof spaghetti, 4 beef meatballs, fried plantain. Hostel classic."},
+  {id:10, name:"Ofada + Ayamase + Beef", cat:"rice", price:4000, old:null, rating:4.8, orders:"670", spice:3, time:"20-30m", tag:"LOCAL 🔥", img:"https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800&auto=format&fit=crop", desc:"Local ofada rice, fiery green ayamase sauce, tender beef & ponmo."},
+  {id:11, name:"Meat Pie (3) + Chapman Combo", cat:"combo", price:2500, old:null, rating:4.7, orders:"1.8k", spice:0, time:"5-10m", tag:"SNACK", img:"https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop", desc:"3 flaky beef meat pies + chilled chapman in a sealed cup. Perfect break snack."},
+  {id:12, name:"Akara + Pap Breakfast Pack", cat:"combo", price:1800, old:null, rating:4.6, orders:"950", spice:0, time:"10-15m", tag:"MORNING", img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=800&auto=format&fit=crop", desc:"8 hot akara balls, sweet pap/akamu & milk sachet. Morning lecture fuel."}
+];
+/* fix one image url typo */
+MENU[8].img = "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=800&auto=format&fit=crop";
+
+const TESTIS = [
+  {name:"Adaeze O.", meta:"Despring Hostel • Block A • 300L Microbiology", img:"https://randomuser.me/api/portraits/women/65.jpg", stars:5, text:"Ordered jollof at 1:47AM during exams and it arrived HOT in 22 minutes. I nearly cried. Zesty Pot is the reason I survived second semester.", dish:"Smoky Party Jollof"},
+  {name:"Tunde B.", meta:"Despring Hostel • Block C • 200L Engineering", img:"https://randomuser.me/api/portraits/men/32.jpg", stars:5, text:"The shawarma overload is actually overloaded — double chicken no be joke. And ₦2,800? My pocket is grateful. Rider even called when he reached my block.", dish:"Shawarma Overload"},
+  {name:"Fatima S.", meta:"Annex Hostel • 400L Law", img:"https://randomuser.me/api/portraits/women/44.jpg", stars:5, text:"As a foodie, hygiene matters to me. Everything came sealed, neat, with cutlery. Egusi tasted like my mum's. I've converted my whole room.", dish:"Egusi + Poundo"},
+  {name:"Emeka J.", meta:"Despring Hostel • Block B • 100L Computer Sci", img:"https://randomuser.me/api/portraits/men/75.jpg", stars:5, text:"Weekly subscription saved my life — lunch sorted Mon-Fri, 15% cheaper. Customer service on WhatsApp replies faster than my supervisor sef 😂", dish:"Weekly Plan"},
+  {name:"Blessing A.", meta:"Despring Hostel • Block A • 200L Nursing", img:"https://randomuser.me/api/portraits/women/68.jpg", stars:4, text:"Peppered snail + cold chapman after night duty = heaven. Delivery took 35 mins once during rain but they dashed me free meat pie. Customer care 100%.", dish:"Peppered Snail"}
+];
+
+/* ============ HELPERS ============ */
+const naira = n => "₦" + n.toLocaleString("en-NG",{minimumFractionDigits:2});
+const nairaShort = n => "₦" + n.toLocaleString("en-NG");
+const waLink = msg => "https://wa.me/2349162632634?text=" + encodeURIComponent(msg);
+function spiceHtml(level){ if(!level) return '<span class="text-[12px] text-charcoal/40 font-semibold">Mild</span>'; let s=''; for(let i=0;i<3;i++) s+=`<i class="fa-solid fa-pepper-hot ${i<level?'spicy':'text-gray-200'}"></i>`; return `<span class="text-[13px] flex gap-0.5">${s}</span>`; }
+
+/* ============ TOAST ============ */
+function toast(msg, icon="fa-circle-check", isErr=false){
+  const box = document.getElementById("toastBox");
+  const el = document.createElement("div");
+  el.className = "toast" + (isErr ? " error" : "");
+  el.innerHTML = `<span class="w-9 h-9 rounded-full ${isErr?'bg-zesty':'bg-fresh'} flex items-center justify-center shrink-0"><i class="fa-solid ${icon}"></i></span><div class="text-sm font-semibold leading-snug flex-1">${msg}</div>`;
+  box.appendChild(el);
+  setTimeout(()=>{ el.classList.add("out"); setTimeout(()=>el.remove(),400); }, 2600);
+}
+
+/* ============ MENU RENDER ============ */
+let activeCat = "all", query = "";
+function renderMenu(){
+  const grid = document.getElementById("menuGrid");
+  const list = MENU.filter(m => (activeCat==="all"||m.cat===activeCat) && m.name.toLowerCase().includes(query.toLowerCase()));
+  document.getElementById("menuCount").textContent = list.length ? `Showing ${list.length} dish${list.length>1?"es":""} — fresh & ready 🔥` : "";
+  if(!list.length){ grid.innerHTML = `<div class="col-span-full bg-white rounded-3xl p-10 text-center border border-red-100"><div class="text-5xl">🍲</div><h3 class="font-head font-extrabold text-xl mt-3">No dish found</h3><p class="text-charcoal/50 text-sm mt-1">Try "jollof" or "shawarma" — or ask us on WhatsApp, we fit cook am!</p><a href="https://wa.me/2349162632634?text=Hello!%20Do%20you%20have%20..." target="_blank" class="inline-block mt-4 bg-fresh text-white font-bold px-6 py-3 rounded-full">Ask on WhatsApp</a></div>`; return; }
+  grid.innerHTML = list.map((m,i)=>`
+  <article class="dish-card bg-white rounded-[22px] overflow-hidden border border-red-100/80 shadow-sm flex flex-col" style="animation:toastIn .5s ${i*0.05}s both">
+    <div class="relative h-52 overflow-hidden cursor-pointer" onclick="openQV(${m.id})">
+      <img loading="lazy" src="${m.img}" alt="${m.name}" class="dish-img w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
+      ${m.tag?`<span class="absolute top-3 left-3 bg-charcoal/90 backdrop-blur text-gold text-[11px] font-extrabold px-3 py-1.5 rounded-full">${m.tag}</span>`:""}
+      <button onclick="event.stopPropagation();toggleFav(this)" aria-label="Save to favorites" class="fav-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-white/95 text-charcoal flex items-center justify-center hover:text-zesty transition"><i class="fa-regular fa-heart"></i></button>
+      <span class="absolute bottom-3 left-3 bg-white/95 text-charcoal text-[11px] font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-clock text-zesty mr-1"></i>${m.time}</span>
+      <span class="absolute bottom-3 right-3 bg-white/95 text-charcoal text-[11px] font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-star text-goldDark mr-1"></i>${m.rating} (${m.orders})</span>
+    </div>
+    <div class="p-4 flex flex-col flex-1">
+      <div class="flex items-start justify-between gap-2">
+        <h3 class="font-head font-bold text-[16px] leading-snug cursor-pointer hover:text-zesty" onclick="openQV(${m.id})">${m.name}</h3>
+        ${spiceHtml(m.spice)}
+      </div>
+      <p class="text-[13px] text-charcoal/55 mt-1 line-clamp-2">${m.desc}</p>
+      <div class="flex items-end gap-2 mt-2.5">
+        <span class="font-head font-black text-xl text-charcoal">${nairaShort(m.price)}</span>
+        ${m.old?`<span class="text-[13px] text-charcoal/35 line-through mb-0.5">${nairaShort(m.old)}</span><span class="text-[11px] font-extrabold bg-freshLight text-fresh px-2 py-0.5 rounded-full mb-1">SAVE ${nairaShort(m.old-m.price)}</span>`:""}
+      </div>
+      <div class="grid grid-cols-[1fr_auto] gap-2 mt-3.5">
+        <button onclick="addToCart(${m.id})" class="btn-shine bg-zesty hover:bg-charcoal text-white font-bold text-sm py-3 rounded-xl transition flex items-center justify-center gap-1.5"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+        <a href="${waLink(`Hello Zesty Pot Kitchen! I want to order: ${m.name} (${nairaShort(m.price)})`)}" target="_blank" title="Message Business" class="bg-freshLight hover:bg-fresh hover:text-white text-fresh font-bold text-[12px] px-3 rounded-xl transition flex items-center gap-1.5 border border-fresh/20"><i class="fa-brands fa-whatsapp text-base"></i> Message<br class="sm:hidden"> Business</a>
+      </div>
+    </div>
+  </article>`).join("");
+}
+document.getElementById("searchInput").addEventListener("input", e=>{ query=e.target.value; renderMenu(); });
+document.querySelectorAll(".cat-btn").forEach(b=>b.addEventListener("click", ()=>{
+  document.querySelectorAll(".cat-btn").forEach(x=>x.classList.remove("cat-active"));
+  b.classList.add("cat-active"); activeCat=b.dataset.cat; renderMenu();
+}));
+function toggleFav(btn){
+  const i = btn.querySelector("i");
+  const on = i.classList.contains("fa-solid");
+  i.className = on ? "fa-regular fa-heart" : "fa-solid fa-heart text-zesty";
+  if(!on) toast("Saved to favorites ❤️");
+}
+
+/* ============ CART ============ */
+let cart = {}; // id -> qty
+function cartQty(){ return Object.values(cart).reduce((a,b)=>a+b,0); }
+function cartSubtotal(){ return Object.entries(cart).reduce((s,[id,q])=>{ const m=MENU.find(x=>x.id==id); return s + (m?m.price*q:0); },0); }
+function addToCart(id, qty=1, silent=false){
+  cart[id]=(cart[id]||0)+qty;
+  renderCart();
+  const m = MENU.find(x=>x.id===id);
+  if(!silent) toast(`<strong>${m.name}</strong> added to cart 🧺<br><span class="text-white/60">Tap basket to checkout</span>`, "fa-basket-shopping");
+  const badge = document.getElementById("cartCount");
+  badge.classList.add("scale-125"); setTimeout(()=>badge.classList.remove("scale-125"),250);
+}
+function setQty(id, qty){
+  if(qty<=0) delete cart[id]; else cart[id]=qty;
+  renderCart();
+}
+function renderCart(){
+  const box = document.getElementById("cartItems");
+  const ids = Object.keys(cart);
+  const count = cartQty(), sub = cartSubtotal();
+  document.getElementById("cartCount").textContent = count;
+  document.getElementById("cartSub").textContent = count + (count===1?" item":" items");
+  const FREE = 10000, fee = sub===0?0:(sub>=FREE?0:500);
+  document.getElementById("cartSubtotal").textContent = naira(sub);
+  document.getElementById("cartDelivery").textContent = sub>=FREE&&sub>0 ? "FREE 🎉" : naira(fee);
+  document.getElementById("cartDelivery").className = "font-bold " + (sub>=FREE&&sub>0?"text-fresh":"text-charcoal");
+  document.getElementById("cartTotal").textContent = naira(sub+fee);
+  const pct = Math.min(100, Math.round(sub/FREE*100));
+  document.getElementById("freeDelBar").style.width = pct+"%";
+  document.getElementById("freeDelPct").textContent = pct+"%";
+  document.getElementById("freeDelLabel").innerHTML = sub>=FREE ? "You've unlocked FREE delivery! 🎉" : `Add ${nairaShort(FREE-sub)} more for FREE delivery 🛵`;
+  if(!ids.length){
+    box.innerHTML = `<div class="text-center py-10"><div class="w-20 h-20 mx-auto rounded-full bg-white flex items-center justify-center text-4xl border border-red-100">🍛</div><h4 class="font-head font-extrabold mt-4">Your pot is empty</h4><p class="text-sm text-charcoal/50 mt-1">Add some smoky jollof —<br>your stomach will thank you.</p><button onclick="toggleCart(false);document.getElementById('menu').scrollIntoView({behavior:'smooth'})" class="mt-4 bg-zesty text-white font-bold px-6 py-3 rounded-full text-sm">Browse Menu</button></div>`;
+    return;
+  }
+  box.innerHTML = ids.map(id=>{
+    const m = MENU.find(x=>x.id==id); const q = cart[id];
+    return `<div class="bg-white rounded-2xl p-3 flex gap-3 border border-red-100">
+      <img loading="lazy" src="${m.img}" alt="${m.name}" class="w-[70px] h-[70px] rounded-xl object-cover shrink-0">
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between gap-2"><h4 class="font-bold text-[13.5px] leading-tight truncate">${m.name}</h4><button onclick="setQty(${id},0)" class="text-charcoal/30 hover:text-zesty" aria-label="Remove"><i class="fa-solid fa-trash-can text-sm"></i></button></div>
+        <div class="text-zesty font-extrabold text-[15px] mt-0.5">${nairaShort(m.price)}</div>
+        <div class="flex items-center justify-between mt-1.5">
+          <div class="flex items-center gap-2 bg-cream rounded-full px-1.5 py-1">
+            <button onclick="setQty(${id},${q-1})" class="w-7 h-7 rounded-full bg-white border font-bold hover:bg-charcoal hover:text-white transition">−</button>
+            <span class="font-extrabold text-sm w-5 text-center">${q}</span>
+            <button onclick="setQty(${id},${q+1})" class="w-7 h-7 rounded-full bg-charcoal text-white font-bold hover:bg-zesty transition">+</button>
+          </div>
+          <span class="font-bold text-sm">${nairaShort(m.price*q)}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+function toggleCart(open){
+  const d=document.getElementById("cartDrawer"), o=document.getElementById("overlay");
+  if(open){ d.style.transform="translateX(0)"; o.style.opacity="1"; o.style.pointerEvents="auto"; document.body.style.overflow="hidden"; }
+  else{ d.style.transform="translateX(100%)"; o.style.opacity="0"; o.style.pointerEvents="none"; document.body.style.overflow=""; }
+}
+function checkoutWA(){
+  const ids = Object.keys(cart);
+  if(!ids.length){ toast("Your cart is empty — add something tasty first!", "fa-triangle-exclamation", true); return; }
+  const room = document.getElementById("roomInput").value.trim();
+  if(!room){ toast("Abeg add your Hostel Block & Room No. so rider go locate you 🛵", "fa-location-dot", true); document.getElementById("roomInput").focus(); return; }
+  const sub = cartSubtotal(); const fee = sub>=10000?0:500;
+  let msg = "Hello Zesty Pot Kitchen! 🍛 I want to order:\n";
+  ids.forEach(id=>{ const m=MENU.find(x=>x.id==id); msg+=`• ${cart[id]}x ${m.name} — ${nairaShort(m.price*cart[id])}\n`; });
+  msg+=`\nSubtotal: ${naira(sub)}\nDelivery: ${fee===0?"FREE":nairaShort(fee)}\nTotal: ${nairaShort(sub+fee)}\n📍 Delivery to: ${room}\nName: `;
+  window.open(waLink(msg), "_blank");
+  toast("Opening WhatsApp… complete your order there! ✅", "fa-whatsapp");
+}
+
+/* ============ QUICK VIEW ============ */
+let qvQty = 1, qvId = null;
+function openQV(id){
+  const m = MENU.find(x=>x.id===id); qvId=id; qvQty=1;
+  document.getElementById("qvBox").innerHTML = `
+    <div class="relative h-60 sm:h-72"><img src="${m.img}" alt="${m.name}" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+      <button onclick="closeQV()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur text-white hover:bg-zesty" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      ${m.tag?`<span class="absolute top-4 left-4 bg-gold text-charcoal text-xs font-extrabold px-3 py-1.5 rounded-full">${m.tag}</span>`:""}
+      <div class="absolute bottom-4 left-5 right-5 flex items-end justify-between"><h3 class="font-head font-extrabold text-white text-xl sm:text-2xl leading-tight pr-3">${m.name}</h3><div class="bg-white rounded-xl px-3 py-1.5 font-black text-zesty whitespace-nowrap">${nairaShort(m.price)}</div></div>
+    </div>
+    <div class="p-6">
+      <div class="flex flex-wrap items-center gap-3 text-sm"><span class="flex items-center gap-1 bg-gold/20 px-2.5 py-1 rounded-full font-bold"><i class="fa-solid fa-star text-goldDark"></i> ${m.rating} • ${m.orders} orders</span><span class="flex items-center gap-1 bg-red-50 px-2.5 py-1 rounded-full font-bold text-charcoal/60"><i class="fa-solid fa-clock text-zesty"></i> ${m.time}</span><span class="flex items-center gap-1">${spiceHtml(m.spice)}</span></div>
+      <p class="text-charcoal/65 mt-3 leading-relaxed">${m.desc}</p>
+      <div class="bg-cream rounded-2xl p-3.5 mt-4 text-sm flex gap-2.5"><i class="fa-solid fa-shield-halved text-fresh mt-0.5"></i><span><strong>Hygiene promise:</strong> sealed bowl, gloved packing, cooked within the last 2 hours.</span></div>
+      <div class="flex items-center gap-3 mt-5">
+        <div class="flex items-center gap-3 bg-cream rounded-full px-2 py-1.5"><button onclick="qvChange(-1)" class="w-9 h-9 rounded-full bg-white border font-black hover:bg-charcoal hover:text-white transition">−</button><span id="qvQtyEl" class="font-black text-lg w-6 text-center">1</span><button onclick="qvChange(1)" class="w-9 h-9 rounded-full bg-charcoal text-white font-black hover:bg-zesty transition">+</button></div>
+        <button onclick="addToCart(qvId,qvQty);closeQV();toggleCart(true)" class="flex-1 btn-shine bg-zesty hover:bg-charcoal text-white font-extrabold py-3.5 rounded-full transition"><i class="fa-solid fa-cart-plus mr-1"></i> Add • <span id="qvTotal">${nairaShort(m.price)}</span></button>
+      </div>
+      <a href="${waLink(`Hello! I want: ${m.name} (${nairaShort(m.price)})`)}" target="_blank" class="mt-2.5 w-full bg-fresh hover:bg-green-700 text-white font-bold py-3.5 rounded-full transition flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-lg"></i> Message Business Instead</a>
+    </div>`;
+  const o=document.getElementById("qvOverlay");
+  o.style.opacity="1"; o.style.pointerEvents="auto";
+  document.getElementById("qvBox").style.transform="scale(1)";
+  document.body.style.overflow="hidden";
+}
+function qvChange(d){ const m=MENU.find(x=>x.id===qvId); qvQty=Math.max(1,qvQty+d); document.getElementById("qvQtyEl").textContent=qvQty; document.getElementById("qvTotal").textContent=nairaShort(m.price*qvQty); }
+function closeQV(){ const o=document.getElementById("qvOverlay"); o.style.opacity="0"; o.style.pointerEvents="none"; document.body.style.overflow=""; }
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ closeQV(); toggleCart(false);} });
+
+/* ============ TESTIMONIALS ============ */
+let tIdx = 0;
+function renderTesti(){
+  const track = document.getElementById("testiTrack"), dots = document.getElementById("testiDots");
+  track.innerHTML = TESTIS.map(t=>`
+    <div class="shrink-0 w-[88%] sm:w-[47%] lg:w-[31.8%] bg-white rounded-[22px] p-6 border border-red-100 shadow-sm flex flex-col">
+      <div class="flex gap-1 text-goldDark text-sm">${'<i class="fa-solid fa-star"></i>'.repeat(t.stars)}${'<i class="fa-regular fa-star"></i>'.repeat(5-t.stars)}</div>
+      <p class="mt-3 text-[15px] leading-relaxed text-charcoal/70 flex-1">"${t.text}"</p>
+      <div class="mt-3 inline-flex items-center gap-1.5 text-[12px] font-bold text-fresh bg-freshLight px-2.5 py-1 rounded-full self-start"><i class="fa-solid fa-circle-check"></i> Ordered: ${t.dish}</div>
+      <div class="flex items-center gap-3 mt-4 pt-4 border-t border-gray-100">
+        <img loading="lazy" src="${t.img}" alt="${t.name}" class="w-12 h-12 rounded-full object-cover border-2 border-gold">
+        <div><div class="font-extrabold text-[15px]">${t.name}</div><div class="text-[12px] text-charcoal/50">${t.meta}</div></div>
+      </div>
+    </div>`).join("");
+  dots.innerHTML = TESTIS.map((_,i)=>`<button onclick="goTesti(${i})" aria-label="Go to review ${i+1}" class="h-2.5 rounded-full transition-all ${i===0?'w-8 bg-zesty':'w-2.5 bg-charcoal/20'}"></button>`).join("");
+  updateTesti();
+}
+function perView(){ return window.innerWidth>=1024?3:window.innerWidth>=640?2:1; }
+function maxIdx(){ return Math.max(0, TESTIS.length - perView()); }
+function updateTesti(){
+  const track=document.getElementById("testiTrack");
+  const card = track.children[0]; if(!card) return;
+  const w = card.getBoundingClientRect().width + 20;
+  tIdx = Math.min(Math.max(0,tIdx), maxIdx());
+  track.style.transform = `translateX(${-tIdx*w}px)`;
+  document.getElementById("testiDots").innerHTML = TESTIS.map((_,i)=>`<button onclick="goTesti(${i})" aria-label="Review ${i+1}" class="h-2.5 rounded-full transition-all ${i===tIdx?'w-8 bg-zesty':'w-2.5 bg-charcoal/20'}"></button>`).join("");
+}
+function moveTesti(d){ tIdx+=d; if(tIdx>maxIdx()) tIdx=0; if(tIdx<0) tIdx=maxIdx(); updateTesti(); }
+function goTesti(i){ tIdx=i; updateTesti(); }
+setInterval(()=>{ if(document.visibilityState==="visible") moveTesti(1); }, 5000);
+window.addEventListener("resize", updateTesti);
+
+/* ============ MISC UI ============ */
+function copyCode(){ navigator.clipboard?.writeText("ZESTY2AM"); toast("Code <strong>ZESTY2AM</strong> copied! Show it on WhatsApp to claim 🎉", "fa-ticket"); }
+document.getElementById("menuBtn").addEventListener("click", ()=>document.getElementById("mobileMenu").classList.toggle("hidden"));
+document.querySelectorAll(".mob-link").forEach(a=>a.addEventListener("click", ()=>document.getElementById("mobileMenu").classList.add("hidden")));
+window.addEventListener("scroll", ()=>{
+  document.getElementById("navbar").style.boxShadow = window.scrollY>10 ? "0 8px 30px rgba(0,0,0,.12)" : "none";
+  const tt=document.getElementById("toTop");
+  if(window.scrollY>600){ tt.classList.remove("hidden"); tt.classList.add("flex"); } else { tt.classList.add("hidden"); tt.classList.remove("flex"); }
+  // active nav
+  const secs=["home","menu","about","why","reviews","contact"];
+  let cur="home";
+  secs.forEach(s=>{ const el=document.getElementById(s); if(el && window.scrollY>=el.offsetTop-140) cur=s; });
+  document.querySelectorAll(".navlink").forEach(a=>a.classList.toggle("active", a.getAttribute("href")==="#"+cur));
+});
+document.getElementById("toTop").addEventListener("click", ()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+/* reveal */
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("visible"); io.unobserve(e.target);} }),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* counters */
+const cio = new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return; cio.unobserve(e.target);
+  const el=e.target, target=+el.dataset.target; let cur=0; const step=Math.max(1,Math.round(target/60));
+  const t=setInterval(()=>{ cur+=step; if(cur>=target){cur=target;clearInterval(t);} el.textContent=cur.toLocaleString(); },30);
+}),{threshold:.5});
+document.querySelectorAll(".counter").forEach(el=>cio.observe(el));
+
+/* countdown to midnight */
+function tickCD(){
+  const now=new Date(), mid=new Date(); mid.setHours(23,59,59,999);
+  let s=Math.max(0,Math.floor((mid-now)/1000));
+  const h=String(Math.floor(s/3600)).padStart(2,"0"), m=String(Math.floor(s%3600/60)).padStart(2,"0"), ss=String(s%60).padStart(2,"0");
+  document.getElementById("cdH").textContent=h; document.getElementById("cdM").textContent=m; document.getElementById("cdS").textContent=ss;
+}
+setInterval(tickCD,1000); tickCD();
+
+/* forms */
+document.getElementById("contactForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const n=document.getElementById("cfName").value.trim(), em=document.getElementById("cfEmail").value.trim(), msg=document.getElementById("cfMsg").value.trim();
+  if(!n||!em||!msg){ toast("Please fill name, email & message so we can reply properly 🙏", "fa-triangle-exclamation", true); return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ toast("That email looks off — check am again 📧", "fa-triangle-exclamation", true); return; }
+  window.open(waLink(`Hello Zesty Pot! I'm ${n} (${em}). ${msg}`), "_blank");
+  toast(`Thanks <strong>${n}</strong>! Opening WhatsApp — we reply in ~2 mins ⚡`, "fa-paper-plane");
+  e.target.reset();
+});
+document.getElementById("newsForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  const em=document.getElementById("newsEmail").value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ toast("Enter a valid email to join the food fam 🍛", "fa-triangle-exclamation", true); return; }
+  toast("Welcome to the Food Fam! 🎉 Deals landing in your inbox soon.", "fa-envelope-open-text");
+  e.target.reset();
+});
+
+/* init */
+renderMenu(); renderCart(); renderTesti();
+
+/* preloader */
+let p=0; const li=setInterval(()=>{ p=Math.min(100,p+Math.random()*22); document.getElementById("loadBar").style.width=p+"%"; if(p>=100){ clearInterval(li); setTimeout(()=>document.getElementById("preloader").classList.add("hide"),350); } },180);
+window.addEventListener("load", ()=>setTimeout(()=>document.getElementById("preloader").classList.add("hide"),900));
+setTimeout(()=>document.getElementById("preloader").classList.add("hide"),3500);
+setTimeout(()=>toast("👋 Welcome! <strong>Late-night shawarma till 3AM</strong> — scroll to see today's menu.", "fa-fire"), 3800);
+</script>
+</body>
+</html>
